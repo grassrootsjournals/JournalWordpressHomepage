@@ -23,49 +23,65 @@ if ( post_password_required() ) {
 <div id="comments" class="comments-area">
 
 	<?php if ( have_comments() ) : ?>
-		<h2 class="comments-title">
-			<?php
-				$comments_number = get_comments_number();
-			if ( '1' === $comments_number ) {
-				/* translators: %s: post title */
-				printf( _x( 'One thought on &ldquo;%s&rdquo;', 'comments title', 'twentysixteen' ), get_the_title() );
-			} else {
-				printf(
-					/* translators: 1: number of comments, 2: post title */
-					_nx(
-						'%1$s thought on &ldquo;%2$s&rdquo;',
-						'%1$s thoughts on &ldquo;%2$s&rdquo;',
-						$comments_number,
-						'comments title',
-						'twentysixteen'
-					),
-					number_format_i18n( $comments_number ),
-					get_the_title()
-				);
-			}
-			?>
-		</h2>
+		<h2 class="comments-title">Comments</h2>
 
 		<?php the_comments_navigation(); ?>
-
-		<!--		<h1>Anyone listening?</h1> -->
-		<?php /* grassroots_wp_list_comments(); */ ?>
-		
-		<ol class="comment-list">		
-			<?php 
+		Number of comments
+		<?php 
+		  $count = 0;
+          printf( '%1$s Comments', comments_type( 'comment', $count)); 
+        ?>
+		<ol class="comment-list">
+			<?php
 				wp_list_comments(
 					array(
+                        'type'        => 'comment', // 'type=comment&callback=twentyten_comment'
 						'style'       => 'ol',
 						'short_ping'  => true,
 						'avatar_size' => 42,
 					)
 				);
-			 ?> 
+			?>
 		</ol><!-- .comment-list -->
 
 		<?php the_comments_navigation(); ?>
 
 	<?php endif; // Check for have_comments(). ?>
+	
+	
+	
+	
+	<!-- VVb copy of the above section, this one for links -->
+	<?php if ( have_comments() ) : ?>
+		<h2 class="comments-title">Links</h2>
+
+		<?php the_comments_navigation(); ?>
+		Number of callbacks
+		<?php 
+          $noLinks = comments_type( 'callback', $count);
+		  printf( '%1$s Links', $noLinks );
+        ?>
+        <!-- <?php comments_type( 'callback' ); ?> -->
+		<ol class="comment-list">
+			<?php
+				wp_list_comments(
+					array(
+                        'type'        => 'callback', // 'type=comment&callback=twentyten_comment'
+						'style'       => 'ol',
+						'short_ping'  => true,
+						'avatar_size' => 42,
+					)
+				);
+			?>
+		</ol><!-- .comment-list -->
+
+		<?php the_comments_navigation(); ?>
+
+	<?php endif; // Check for have_comments(). ?>
+	
+	<!-- VVe links section -->
+	
+	
 
 	<?php
 		// If comments are closed and there are comments, let's leave a little note, shall we?
@@ -75,9 +91,8 @@ if ( post_password_required() ) {
 	<?php endif; ?>
 
 	<?php
-		grassroots_comment_form(
-		//comment_form(
-		array(
+		comment_form(
+			array(
 				'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
 				'title_reply_after'  => '</h2>',
 			)

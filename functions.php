@@ -12,7 +12,16 @@ function my_theme_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 ?>                                                                                                                                                                                                                                      
+
+
+// <?php update_comment_meta( 41, 'comment_content', 'Brad' ); ?>
+
      
+// <?php
+// add_action( 'all', create_function( '', 'var_dump( current_filter());' ) );     
+// ?>   
+
+
 <?php
 require_once( get_stylesheet_directory() . '/inc/comment_functions.php' );
 //require_once( WP_CONTENT_DIR . '/inc/comment_functions.php' );
