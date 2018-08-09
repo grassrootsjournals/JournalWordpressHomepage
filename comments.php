@@ -22,6 +22,7 @@ if ( post_password_required() ) {
 
 <div id="comments" class="comments-area">
 
+<<<<<<< HEAD
 	<!-- VVb Begin of new code to print comments. -->
 	<?php if ( have_comments() ) : 
 		$count = array(); 
@@ -66,11 +67,28 @@ if ( post_password_required() ) {
 				wp_list_comments(
 					array(
 	                    'type'        => 'review', // 'type=review&callback=twentyten_comment'
+=======
+	<?php if ( have_comments() ) : ?>
+		<h2 class="comments-title">Comments</h2>
+
+		<?php the_comments_navigation(); ?>
+		Number of comments
+		<?php 
+		  $count = 0;
+          printf( '%1$s Comments', comments_type( 'comment', $count)); 
+        ?>
+		<ol class="comment-list">
+			<?php
+				wp_list_comments(
+					array(
+                        'type'        => 'comment', // 'type=comment&callback=twentyten_comment'
+>>>>>>> 00cadeab397a4942a357ceaea32c20e3eca8c700
 						'style'       => 'ol',
 						'short_ping'  => true,
 						'avatar_size' => 42,
 					)
 				);
+<<<<<<< HEAD
 			echo('</ol><!-- .comment-list -->');
 			the_comments_navigation();
 	    endif; // if noReviews larger than 0. 
@@ -112,11 +130,40 @@ if ( post_password_required() ) {
 				wp_list_comments(
 					array(
                         'type'        => 'specific_comment', // 'type=specific&callback=twentyten_comment'
+=======
+			?>
+		</ol><!-- .comment-list -->
+
+		<?php the_comments_navigation(); ?>
+
+	<?php endif; // Check for have_comments(). ?>
+	
+	
+	
+	
+	<!-- VVb copy of the above section, this one for links -->
+	<?php if ( have_comments() ) : ?>
+		<h2 class="comments-title">Links</h2>
+
+		<?php the_comments_navigation(); ?>
+		Number of callbacks
+		<?php 
+          $noLinks = comments_type( 'callback', $count);
+		  printf( '%1$s Links', $noLinks );
+        ?>
+        <!-- <?php comments_type( 'callback' ); ?> -->
+		<ol class="comment-list">
+			<?php
+				wp_list_comments(
+					array(
+                        'type'        => 'callback', // 'type=comment&callback=twentyten_comment'
+>>>>>>> 00cadeab397a4942a357ceaea32c20e3eca8c700
 						'style'       => 'ol',
 						'short_ping'  => true,
 						'avatar_size' => 42,
 					)
 				);
+<<<<<<< HEAD
 			echo('</ol> <!-- .comment-list -->');
 		the_comments_navigation();
     	endif; // if noSpecifics larger than 0.
@@ -147,6 +194,19 @@ if ( post_password_required() ) {
 	?>
 	<!-- VVe End of new code to print comments. -->
 	
+=======
+			?>
+		</ol><!-- .comment-list -->
+
+		<?php the_comments_navigation(); ?>
+
+	<?php endif; // Check for have_comments(). ?>
+	
+	<!-- VVe links section -->
+	
+	
+
+>>>>>>> 00cadeab397a4942a357ceaea32c20e3eca8c700
 	<?php
 		// If comments are closed and there are comments, let's leave a little note, shall we?
 	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) :
