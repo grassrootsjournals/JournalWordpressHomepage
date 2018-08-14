@@ -14,12 +14,14 @@ add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 ?>                                                                                                                                                                                                                                      
 
 
-// <?php update_comment_meta( 41, 'comment_content', 'Brad' ); ?>
+<?php 
+// update_comment_meta( 41, 'comment_content', 'Brad' ); 
+?>
 
      
-// <?php
+<?php
 // add_action( 'all', create_function( '', 'var_dump( current_filter());' ) );     
-// ?>   
+?>   
 
 
 <?php
