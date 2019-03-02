@@ -1,35 +1,35 @@
 <?php
-function my_theme_enqueue_styles() {
+function grassroots_theme_enqueue_styles() {
 
     $parent_style = 'twentysixteen-style'; // This is 'twentysixteen-style' for the Twenty Sixteen theme.
 
     wp_enqueue_style( $parent_style, get_template_directory_uri() . '/style.css' );
     wp_enqueue_style( 'child-style',
-        get_stylesheet_directory_uri() . '/style.css',
+        get_stylesheet_directory_uri() . '/css/grassroots.css',
         array( $parent_style ),
-        wp_get_theme()->get('Version')
-    );                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+        wp_get_theme()->get('Version'),
+        'all'
+    );
+    wp_enqueue_script( 'child-js',
+        get_stylesheet_directory_uri() . '/js/grassroots.js',
+        array(),
+        wp_get_theme()->get('Version'),
+        true // Link to JS in the footer
+    );
 }
-add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
-?>                                                                                                                                                                                                                                      
-
-
-<?php 
-// update_comment_meta( 41, 'comment_content', 'Brad' ); 
-?>
+add_action( 'wp_enqueue_scripts', 'grassroots_theme_enqueue_styles' );
+?> 
 
      
 <?php
+    require_once( get_stylesheet_directory() . '/inc/comment_functions.php' );
+    require_once( get_stylesheet_directory() . '/inc/seo_functions.php' );
+    require_once( get_stylesheet_directory() . '/inc/post_type_functions.php' ); 
+    require_once( get_stylesheet_directory() . '/inc/toolbar_functions.php' ); 
 // add_action( 'all', create_function( '', 'var_dump( current_filter());' ) );     
 ?>   
 
-
 <?php
-require_once( get_stylesheet_directory() . '/inc/comment_functions.php' );
-//require_once( WP_CONTENT_DIR . '/inc/comment_functions.php' );
-?>
-                       
-<?php                                                                                                                                                       
 /**
  * Setup My Child Theme's textdomain.
  *
@@ -47,7 +47,6 @@ Example how to use this:
 esc_html_e( 'Code is Poetry', 'my-child-theme' );
 ?>
 */
-
 ?>
 
 <?php

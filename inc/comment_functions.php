@@ -3,52 +3,54 @@
 // code inspired by: https://wordpress.stackexchange.com/questions/101579/add-a-drop-down-list-to-comment-form
 add_filter( 'comment_form_field_comment', 'grassroots_add_comment_type_form_field' );
 function grassroots_add_comment_type_form_field( $field ) {
-//	echo('Echo reply to com:');
-//	echo($_GET['replytocom']);
-	// global $id;
-    // get_comment( $id, $comm );
-    // var_dump($comm);
-    // comment_parent
-    // if( '0' != ){ }
-    global $comment;
-    global $comment_depth;
-    // var_dump($comment);
-    // echo($comment_depth);
-    // echo( $comment->comment_parent );
-    // if ($comment->comment_parent == 0) :
-	// if ( isset($_GET['replytocom']) ) :
-		
-		// comment_parent > 0
-	    // To change the label of the submit button Inside your comment_form, add this:
-	    // 'label_submit' => isset($_GET['replytocom']) ? __('Leave a reply', 'wpse') : __('Leave a comment', 'wpse'),
+    if ( is_single() ) :
+    //	echo('Echo reply to com:');
+    //	echo($_GET['replytocom']);
+    	// global $id;
+        // get_comment( $id, $comm );
+        // var_dump($comm);
+        // comment_parent
+        // if( '0' != ){ }
+        global $comment;
+        global $comment_depth;
+        // var_dump($comment);
+        // echo($comment_depth);
+        // echo( $comment->comment_parent );
+        // if ($comment->comment_parent == 0) :
+    	// if ( isset($_GET['replytocom']) ) :
+    		
+    		// comment_parent > 0
+    	    // To change the label of the submit button Inside your comment_form, add this:
+    	    // 'label_submit' => isset($_GET['replytocom']) ? __('Leave a reply', 'wpse') : __('Leave a comment', 'wpse'),
 
-	    // $field contains the html for the main text comment field of the form.
-	    // $select contains the html for the selection button after passing this function.
-	    // By combining them in the return statement first the selection button is printed and then the comment field.
+    	    // $field contains the html for the main text comment field of the form.
+    	    // $select contains the html for the selection button after passing this function.
+    	    // By combining them in the return statement first the selection button is printed and then the comment field.
 
-	    // Write selection box html
-	    $select = '<p><label for="typeselect">Comment type:</label> 
-	    <select name="comment_ctype" id="comment_ctype">
-	    <option value="">Comment type</option>'; // The first line write text above the select button. name and id can be used to refer to this button in the processing. The text between the option tags is shown on the select button.
+    	    // Write selection box html
+    	    //$select = '<p><label for="typeselect">Comment type:</label> 
+    	    $select = '<p><label for="comment_ctype">Comment type:</label> 
+    	    <select name="comment_ctype" id="comment_ctype">
+    	    <option value="">Comment type</option>'; // The first line write text above the select button. name and id can be used to refer to this button in the processing. The text between the option tags is shown on the select button.
 
-	    // Write html for the selection options
-	    $select .= '<option value="synthesis">Synthesis</option>';
-	    $select .= '<option value="review">Review</option>';
-	    $select .= '<option value="general_comment">General comment</option>';
-	    $select .= '<option value="specific_comment">Specific comment</option>';
-	    $select .= '<option value="message">Unpublished message</option>';
-	    $select .= '<option value="link">Related URL</option>';
-	    // Also replies should be a comment type    
-	    // Last line selection box html:
-	    $select .= '</select></p>';
-	    
-	    // echo($field);
-	    // echo($select);
+    	    // Write html for the selection options
+    	    $select .= '<option value="synthesis">Synthesis</option>';
+    	    $select .= '<option value="review">Review</option>';
+    	    $select .= '<option value="general_comment">General comment</option>';
+    	    $select .= '<option value="specific_comment">Specific comment</option>';
+    	    $select .= '<option value="message">Unpublished message</option>';
+    	    $select .= '<option value="link">Related URL</option>';
+    	    // Also replies should be a comment type    
+    	    // Last line selection box html:
+    	    $select .= '</select></p>';
+    	    
+    	    // echo($field);
+    	    // echo($select);
 
-	    // return $select . $field;
-	    $field = $select . $field;
-	// endif;
-
+    	    // return $select . $field;
+    	    $field = $select . $field;
+    	// endif;
+    endif;
 	return $field;
 }
 
@@ -107,7 +109,7 @@ function comments_type( $count ) {
 
     if ( ! is_admin() ) {
     	global $id;
-    	if (TRUE) {
+    	if (FALSE) {
             $count['synthesis']        = 1;
             $count['review']           = 1;
             $count['general_comment']  = 1;
@@ -115,14 +117,16 @@ function comments_type( $count ) {
             $count['message']          = 1;
             $count['link']             = 1;
     	}
-    	if (FALSE) {
-            $comments_by_type = separate_comments( get_comments( 'status=approve&post_id=' . $id ) );        
-            $count['synthesis']        = sizeof($comments_by_type['synthesis']);
-            $count['review']           = sizeof($comments_by_type['review']);
-            $count['general_comment']  = sizeof($comments_by_type['general_comment']);
-            $count['specific_comment'] = sizeof($comments_by_type['specific_comment']);
-            $count['message']          = sizeof($comments_by_type['message']);
-            $count['link']             = sizeof($comments_by_type['link']);
+    	if (TRUE) {
+    		$categorized_comments = get_comments( 'status=approve&post_id=' . $id ); 
+            $comments_by_type = separate_comments( $categorized_comments );        
+            // echo( $comments_by_type['synthesis'] );            
+            $count['synthesis']        = ( empty($comments_by_type['synthesis'])        ? 0 : sizeof($comments_by_type['synthesis']) );
+            $count['review']           = ( empty($comments_by_type['review'])           ? 0 : sizeof($comments_by_type['review']) );
+            $count['general_comment']  = ( empty($comments_by_type['general_comment'])  ? 0 : sizeof($comments_by_type['general_comment']) );            
+            $count['specific_comment'] = ( empty($comments_by_type['specific_comment']) ? 0 : sizeof($comments_by_type['specific_comment']) );            
+            $count['message']          = ( empty($comments_by_type['message'])          ? 0 : sizeof($comments_by_type['message']) );
+            $count['link']             = ( empty($comments_by_type['link'])             ? 0 : sizeof($comments_by_type['link']) );
         }
 	    // echo('Dump of count at the end of function comments_type.');
  	    // var_dump($count);
@@ -134,7 +138,7 @@ function comments_type( $count ) {
     }
 }
 
-// The basis of the following three functions to change the registration type in bulk comes from http://wpengineer.com/2803/create-your-own-bulk-actions/
+// The basis of the following three functions to change the registration type in bulk in the back end comes from http://wpengineer.com/2803/create-your-own-bulk-actions/
 add_filter('bulk_actions-edit-comments', 'register_my_bulk_actions');
 function register_my_bulk_actions($bulk_actions) {
     $bulk_actions['Dummynull'] = __( '== Change comment type ==', 'my-child-theme');
@@ -282,7 +286,7 @@ function grassroots_comment_type_meta_box_cb($comment) {
     // wp_nonce_field('grassroots_type_update', 'grassroots_type_update', false);
     ?>
     <p>
-        <label for="typeselect">Comment type:</label> 
+        <label for="comment_ctype">Comment type:</label> 
         <select name="comment_ctype" id="comment_ctype">
         <option value="">Comment type</option>'
         <option value="synthesis">Synthesis</option>'
