@@ -164,9 +164,20 @@ if ( post_password_required() ) {
 			comment_form(
 				array(
 					'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
+					'title_reply_after'  => '</h2> <p>Everyone is welcome to make comments on this paper below. The comments are pre-moderated (will only appear after approval by the editors) to ensure their quality.</p>',
+				)
+			);
+		?>
+
+		<?php
+/*			// Old version:
+			comment_form(
+				array(
+					'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
 					'title_reply_after'  => '</h2>',
 				)
 			);
+*/			
 		?>
 
 	</div><!-- .comments-area -->

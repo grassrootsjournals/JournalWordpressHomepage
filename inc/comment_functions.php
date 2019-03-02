@@ -278,26 +278,73 @@ function my_bulk_action_admin_notice() {
 // Basis comes from Christopher Davis at https://www.pmg.com/blog/adding-extra-fields-to-wordpress-comments/?cn-reloaded=1
 add_action('add_meta_boxes_comment', 'grassroots_comment_type_add_meta_box');
 function grassroots_comment_type_add_meta_box() {
-    add_meta_box('grassroots-comment-type-id', __('Comment type'), 'grassroots_comment_type_meta_box_cb', 'comment', 'normal', 'high');
+    $comment = get_comment( $comment_ID);
+    $comment_type = $comment->comment_type;
+    $valid_values = array('synthesis', 'review', 'general_comment', 'specific_comment', 'message', 'link');
+    if( in_array( $comment_type, $valid_values ) ) {
+        add_meta_box('grassroots-comment-type-id', __('Comment type'), 'grassroots_comment_type_meta_box_cb', 'comment', 'normal', 'high');
+    }
+    
+    # Old version:
+    # add_meta_box('grassroots-comment-type-id', __('Comment type'), 'grassroots_comment_type_meta_box_cb', 'comment', 'normal', 'high');
 }
 
 function grassroots_comment_type_meta_box_cb($comment) {
-    $comment_type = get_comment_meta($comment->comment_ID, 'comment_type', true);
-    // wp_nonce_field('grassroots_type_update', 'grassroots_type_update', false);
-    ?>
-    <p>
+    $comment = get_comment( $comment_ID);
+    $comment_type = $comment->comment_type;
+
+    $select  = '<p>';
+    $select .= '<label for="typeselect">Comment type:</label>';
+    $select .= '<select name="comment_ctype" id="comment_ctype">';
+    // $select .= '<option value="">Comment type</option>';
+    
+    if ( $comment_type == 'synthesis')
+        $select .= '<option value="synthesis" selected="selected">Synthesis</option>';
+    else
+        $select .= '<option value="synthesis">Synthesis</option>';
+
+    if ( $comment_type == 'review')
+        $select .= '<option value="review" selected="selected">Review</option>';
+    else
+        $select .= '<option value="review">Review</option>';
+    
+    if ( $comment_type == 'general_comment')
+        $select .= '<option value="general_comment" selected="selected">General comment</option>';
+    else        
+        $select .= '<option value="general_comment">General comment</option>';
+    
+    if ( $comment_type == 'specific_comment')
+        $select .= '<option value="specific_comment" selected="selected">Specific comment</option>';
+    else
+        $select .= '<option value="specific_comment">Specific comment</option>';
+    
+    if ( $comment_type == 'message')
+        $select .= '<option value="message" selected="selected">Unpublished message to editors</option>';
+    else
+        $select .= '<option value="message">Unpublished message to editors</option>';
+    
+    $select .= '</select>';
+    $select .= '</p>';
+
+    echo($select);
+
+//    $comment_type = get_comment_meta($comment->comment_ID, 'comment_type', true);
+//    // wp_nonce_field('grassroots_type_update', 'grassroots_type_update', false);
+//   ?>
+<!--    <p>
         <label for="comment_ctype">Comment type:</label> 
         <select name="comment_ctype" id="comment_ctype">
-        <option value="">Comment type</option>'
-        <option value="synthesis">Synthesis</option>'
-        <option value="review">Review</option>'
-        <option value="general_comment">General comment</option>'
-        <option value="specific_comment">Specific comment</option>'
-        <option value="message">Unpublished message</option>'
-        <option value="link">Related URL</option>'
-        </select>
-    </p>
-    <?php
+#        <option value="">Comment type</option>'
+#        <option value="synthesis">Synthesis</option>'
+#        <option value="review">Review</option>'
+#        <option value="general_comment">General comment</option>'
+#        <option value="specific_comment">Specific comment</option>'
+#        <option value="message">Unpublished message</option>'
+#        <option value="link">Related URL</option>'
+#        </select>
+#    </p>
+-->
+//    <?php
 }
 
 
