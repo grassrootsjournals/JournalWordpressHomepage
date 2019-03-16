@@ -22,10 +22,11 @@ add_action( 'wp_enqueue_scripts', 'grassroots_theme_enqueue_styles' );
 
      
 <?php
-    require_once( get_stylesheet_directory() . '/inc/comment_functions.php' );
-    require_once( get_stylesheet_directory() . '/inc/seo_functions.php' );
+    require_once( get_stylesheet_directory() . '/inc/comment_functions.php'   );
+    require_once( get_stylesheet_directory() . '/inc/seo_functions.php'       );
     require_once( get_stylesheet_directory() . '/inc/post_type_functions.php' ); 
-    require_once( get_stylesheet_directory() . '/inc/toolbar_functions.php' ); 
+    require_once( get_stylesheet_directory() . '/inc/toolbar_functions.php'   ); 
+    require_once( get_stylesheet_directory() . '/inc/general_functions.php'   ); 
 // add_action( 'all', create_function( '', 'var_dump( current_filter());' ) );     
 ?>   
 
