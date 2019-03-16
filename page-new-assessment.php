@@ -15,7 +15,11 @@
 	JS to automatically fill in the form based on CrossRef. 
 -->
 
-<?php $allEditors = get_users( 'orderby=meta_value&meta_key=last_name&role=editor' ); ?>
+<?php 
+	// More information on sorting. https://wordpress.stackexchange.com/questions/206251/how-can-i-sort-get-users-by-any-value-last-name-user-defined-fields-and-more 
+	// It is now sorted by last name and probably as second criterion the nicename, this will in most cases be the first name, but we could do this explicitly. Later, it will be rare given the limited number of editors and it will thus not be much of a problem if it does occur. 
+	$allEditors = get_users( 'orderby=meta_value&meta_key=last_name&role=editor' ); 
+?>
 
 <script>
 	// var counter = 1;
