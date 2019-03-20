@@ -3,7 +3,7 @@
 
 
 function assessment_custom_post_type_init() {
-/* This function creates a new custom post type (other types are post and page) for the assessments.
+/* This function creates a new custom post type (the main build-in types are "post" and "page") for the assessments.
    For more information: https://codex.wordpress.org/Function_Reference/register_post_type */
     $labels = array(
         'name'                  => _x( 'Assessments', 'Post type general name',  'twentysixteen-child' ),
@@ -73,7 +73,7 @@ function assessment_custom_post_type_flush() {
 }
 add_action( 'after_switch_theme', 'assessment_custom_post_type_flush' );
 
-// Delete the "post" post type, later to be added as a switch.
+// Delete the "post" post type, later to be added as a switch so people can add a blog to the journal.
 // For more information: https://wordpress.stackexchange.com/questions/3820/deregister-custom-post-types
 /*
 function delete_post_type(){

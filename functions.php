@@ -22,13 +22,26 @@ add_action( 'wp_enqueue_scripts', 'grassroots_theme_enqueue_styles' );
 
      
 <?php
-    require_once( get_stylesheet_directory() . '/inc/comment_functions.php'   );
-    require_once( get_stylesheet_directory() . '/inc/seo_functions.php'       );
-    require_once( get_stylesheet_directory() . '/inc/post_type_functions.php' ); 
-    require_once( get_stylesheet_directory() . '/inc/toolbar_functions.php'   ); 
-    require_once( get_stylesheet_directory() . '/inc/general_functions.php'   ); 
+    require_once( get_stylesheet_directory() . '/inc/comment_functions.php'       );
+    require_once( get_stylesheet_directory() . '/inc/seo_functions.php'           );
+    require_once( get_stylesheet_directory() . '/inc/post_type_functions.php'     ); 
+    require_once( get_stylesheet_directory() . '/inc/toolbar_functions.php'       ); 
+    require_once( get_stylesheet_directory() . '/inc/general_functions.php'       ); 
+    require_once( get_stylesheet_directory() . '/new_assessment_functions.php');
 // add_action( 'all', create_function( '', 'var_dump( current_filter());' ) );     
 ?>   
+
+<?php
+if ( (isset($_GET['action']) && $_GET['action'] != 'logout') || (isset($_POST['login_location']) && !empty($_POST['login_location'])) ) {
+    
+    function grassroots_login_redirect() {
+        $location = $_SERVER['HTTP_REFERER'];
+        wp_safe_redirect($location);
+        exit();
+    }
+    add_filter('login_redirect', 'grassroots_login_redirect', 10, 3);
+}
+?>
 
 <?php
 /**

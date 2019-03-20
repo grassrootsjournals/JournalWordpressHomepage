@@ -7,6 +7,118 @@ blockquote {
 	hyphens: manual;
 }
 
+
+
+/* CSS for forms */
+input[type="text"] {
+	display: inline;
+}
+
+input[type="radio"] {
+	display: inline;
+	margin-bottom: 1em;
+}
+
+textarea {
+	display: inline;
+	margin-bottom: 1em;
+}
+
+label {
+	color: #333;
+	display: inline;
+	font-weight: 800;
+	margin-bottom: 0.5em;
+}
+
+/* Make the placeholder text in the form fields somewhat transparent, so that it does not look filled in already. */
+::-webkit-input-placeholder {
+	opacity: 0.6;
+}
+
+:-moz-placeholder {
+	opacity: 0.6;
+}
+
+::-moz-placeholder {
+	opacity: 0.6;
+}
+
+:-ms-input-placeholder {
+	opacity: 0.6;
+}
+
+/* When the form field is focused, i.e. when the cursor is placed in it, remove the placeholder text and make the border thicker and colored. */
+:focus::-webkit-input-placeholder {
+	opacity: 0;
+}
+
+:focus:-moz-placeholder {
+	opacity: 0;
+}
+
+:focus::-moz-placeholder {
+	opacity: 0;
+}
+
+:focus:-ms-input-placeholder {
+	opacity: 0;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="range"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+input[type="time"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="color"]:focus,
+textarea:focus {
+	border: 2px solid #0000bb;
+}
+
+/* Formatting of the response */
+/* The box around the form field in error */
+input[type="text"].errorfield,
+textarea.errorfield {
+  border-width: 2px;
+  border: solid #bb0000;
+}
+
+/* The warning message itself */
+.error{
+  width: auto;
+  color: #bb0000;
+  border-width: 2px 0px;
+  border-color: #bb0000;
+  border-style: solid;
+  margin: 1em 0em;
+  padding: 0.5em 0.25em;
+}
+
+
+.success{
+  width: auto;
+  border-width: 2px 0px;
+  border-color: #00bb00;
+  border-style: solid;
+  margin: 1em 0em;
+  padding: 0.5em 0.25em;
+}
+
+/* Make the star indicating a required field red */
+.requiredfield {
+  color: red;
+}
+
+
 /* Formatting for the new-assessments form */
 label {
 	font-weight: bold;
@@ -44,6 +156,10 @@ label {
 	min-width: 20em;
 }
 
+.formFullWidth {
+	width: 100%;
+}
+
 .newAssessementAuthorNo {
 	width = 9em;
 }
@@ -61,4 +177,6 @@ label {
  	flex-wrap: wrap;
  	align-items: flex-start;
 }
+
+
 

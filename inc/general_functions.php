@@ -5,5 +5,10 @@ function get_user_role( $user_id = 0 ) {
 	return current( $user->roles );
 }
 
+
+
+
+
 ?>
+
 

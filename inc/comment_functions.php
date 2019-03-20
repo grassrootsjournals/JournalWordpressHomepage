@@ -1,4 +1,22 @@
 <?php  
+// This library contains several functions, which change the standard WordPress commenting system. 
+// The main change is that there are now multiple types of comments, the metadata of the comment indicates the type.
+// This change necessitated the user to indicate the commment type, the moderators to be able to change it and the
+// output to be split up in multiple sections.
+
+// Functions contained in this file:
+// function grassroots_add_comment_type_form_field: Adds a selection form field to the comment box on any assessment page
+// function grassroots_save_comment_type_form_field: Saves the comment type in the database
+
+// Two helper functions:
+// function grassroots_write_comment_type: Help function to make it possible to write out comment type during development
+// function comments_type: Splits comments up by type to counts the number of comments of every type
+
+// The next three functions add the posibility to change the comment type of multiple comments in the comment admin screen
+// function register_my_bulk_actions
+// function my_bulk_action_handler
+// function grassroots_comment_type_meta_box_cb
+
 // This function makes Wordpress print a dropdown list where the user can indicate what kind of comment is made.
 // code inspired by: https://wordpress.stackexchange.com/questions/101579/add-a-drop-down-list-to-comment-form
 add_filter( 'comment_form_field_comment', 'grassroots_add_comment_type_form_field' );
