@@ -1,4 +1,5 @@
 <?php
+/* Let WordPress know where to find the CSS and JS. */
 function grassroots_theme_enqueue_styles() {
 
     $parent_style = 'twentysixteen-style'; // This is 'twentysixteen-style' for the Twenty Sixteen theme.
@@ -20,6 +21,14 @@ function grassroots_theme_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'grassroots_theme_enqueue_styles' );
 ?> 
 
+<?php
+/* Let WordPress know where to find the CSS of the backend/admin. */
+function grassroots_theme_enqueue_styles_admin() {
+    wp_register_style( 'grassroots_admin_stylesheet', get_stylesheet_directory_uri() . '/css/grassroots_admin.css' );
+    wp_enqueue_style( 'grassroots_admin_stylesheet' );
+}
+add_action( 'admin_enqueue_scripts', 'grassroots_theme_enqueue_styles_admin' );
+?> 
      
 <?php
     require_once( get_stylesheet_directory() . '/inc/comment_functions.php'       );

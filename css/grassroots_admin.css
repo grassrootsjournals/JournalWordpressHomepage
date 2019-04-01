@@ -1,0 +1,6 @@
+/* Remove the help tab on the dashboard screen explaining the widgets because some have been removed and a new tab was made in general_functions.php */
+#tab-link-help-content {
+	display: none;
+	color: red;
+}
+

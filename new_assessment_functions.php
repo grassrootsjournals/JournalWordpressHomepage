@@ -5,6 +5,8 @@
 // These normal users need to have at least one accepted comment to avoid spam.
 // Function based on https://wpshout.com/wordpress-submit-posts-from-frontend/
 function grassroots_save_assessment_if_submitted() {
+    
+    
     // Stop running function if form wasn't submitted
     if ( !isset($_POST['title']) ) {
         return;
